@@ -1,27 +1,26 @@
-﻿using BackgroundServiceWebApplication.Helpers;
-using BackgroundServiceWebApplication.Services.Contract;
+﻿using BackgroundServiceApplication.Helpers;
+using BackgroundServiceApplication.Services.Contract;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
-namespace BackgroundServiceWebApplication.BackgroundWorkers;
+namespace BackgroundServiceApplication.BackgroundWorkers;
 
 public class SalaryCalculateBackgroundWorker : BackgroundService
 {
     #region Fields
-    private readonly ILogger<SalaryCalculateBackgroundWorker> _logger;
     private readonly ISalaryCalculateService _salaryCalculateService;
     private readonly OrderingBackgroundSetting _settings;
+
     #endregion Fields
 
     #region Ctor
 
     public SalaryCalculateBackgroundWorker(
-        ILogger<SalaryCalculateBackgroundWorker> logger,
         ISalaryCalculateService salaryCalculateService,
         IOptions<OrderingBackgroundSetting> settings)
     {
         this._salaryCalculateService = salaryCalculateService;
         this._settings = settings.Value;
-        this._logger = logger;
     }
     #endregion Ctor
 
@@ -37,26 +36,27 @@ public class SalaryCalculateBackgroundWorker : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
+        try
         {
-            try
-            {
-                await DoWork(stoppingToken);
-            }
-            catch (TaskCanceledException exception)
-            {
-
-            }
+            await DoWork(stoppingToken);
+        }
+        catch (Exception exception)
+        {
+            //exception 
         }
     }
+
+    #region [ Private ]
 
     private async Task DoWork(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
         {
             await _salaryCalculateService.SalaryCalculateAsync();
-            await Task.Delay(TimeSpan.FromSeconds(_settings.WorkerIntervalSec), stoppingToken);
+
+            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
         }
     }
+    #endregion [ Private ]
 }
 
