@@ -9,6 +9,8 @@ public class SalaryCalculateBackgroundWorker : BackgroundService
 {
     #region Fields
     private readonly ISalaryCalculateService _salaryCalculateService;
+    private readonly OrderingBackgroundSetting _settings;
+
     #endregion Fields
 
     #region Ctor
@@ -44,6 +46,8 @@ public class SalaryCalculateBackgroundWorker : BackgroundService
         }
     }
 
+    #region [ Private ]
+
     private async Task DoWork(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
@@ -53,5 +57,6 @@ public class SalaryCalculateBackgroundWorker : BackgroundService
             await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
         }
     }
+    #endregion [ Private ]
 }
 
