@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "Kvfpncbp5UqWu8xj5kPBoqEQVbtC4ZNFr4Vy34YfbIw=",
+  "Source": "BackgroundServiceWebApplication",
+  "BasePath": "_content/BackgroundServiceWebApplication",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
