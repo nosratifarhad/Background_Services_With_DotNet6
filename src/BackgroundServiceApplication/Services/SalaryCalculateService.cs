@@ -1,13 +1,29 @@
-﻿using BackgroundServiceApplication.Services.Contract;
+﻿using BackgroundServiceApplication.Services.Contracts;
+using BackgroundServiceApplication.Wrappers.Contracts;
 
 namespace BackgroundServiceApplication.Services;
 
 public class SalaryCalculateService : ISalaryCalculateService
 {
+    #region Fields
+    private readonly ISalaryCalculateWrapper _salaryCalculateWrapper;
+    #endregion Fields
+
+    #region Ctor
+
+    public SalaryCalculateService(ISalaryCalculateWrapper salaryCalculateWrapper)
+    {
+        this._salaryCalculateWrapper = salaryCalculateWrapper;
+    }
+
+    #endregion Ctor
+
+    #region Methods
+
     public async Task SalaryCalculateAsync()
     {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"Calculate Personnel Salary In Samery Subsystem In This Time {DateTime.Now} \n");
-        await Task.Delay(1000);
+        await _salaryCalculateWrapper.SalaryCalculateAsync();
     }
+
+    #endregion Methods
 }
