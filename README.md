@@ -68,4 +68,7 @@ private async Task DoWork(CancellationToken stoppingToken)
 #endregion [ Private ]
 ```
 
+![My Remote Image](https://github.com/nosratifarhad/background-services-with-asp-net-6/blob/main/imgs/Annotation.jpg)
+
+
 ## Good luck
