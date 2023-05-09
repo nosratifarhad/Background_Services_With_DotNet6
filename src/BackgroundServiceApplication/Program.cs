@@ -15,7 +15,11 @@ public class Program
         Host.CreateDefaultBuilder(args)
             .ConfigureServices((hostContext, services) =>
             {
+                #region AddServices
+                
                 services.AddSingleton<ISalaryCalculateService, SalaryCalculateService>();
                 services.AddHostedService<SalaryCalculateBackgroundWorker>();
+                
+                #endregion AddServices
             });
 }

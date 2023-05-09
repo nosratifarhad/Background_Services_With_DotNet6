@@ -2,6 +2,7 @@
 using BackgroundServiceApplication.Services.Contract;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using System.Diagnostics;
 
 namespace BackgroundServiceApplication.BackgroundWorkers;
 
@@ -52,11 +53,22 @@ public class SalaryCalculateBackgroundWorker : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            await _salaryCalculateService.SalaryCalculateAsync();
+            try
+            {
+                await _salaryCalculateService.SalaryCalculateAsync();
 
-            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                //Console.WriteLine($"Run DoWork Method In Back Ground");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine($"Call Salary Api For Calculate Personnel Salary In This time : {DateTime.Now}");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Exception");
+            }
         }
     }
+
     #endregion [ Private ]
 }
 
