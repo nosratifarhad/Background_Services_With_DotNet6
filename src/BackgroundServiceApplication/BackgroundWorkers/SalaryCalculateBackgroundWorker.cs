@@ -1,5 +1,5 @@
 ﻿using BackgroundServiceApplication.Helpers;
-using BackgroundServiceApplication.Services.Contract;
+using BackgroundServiceApplication.Services.Contracts;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
@@ -58,7 +58,6 @@ public class SalaryCalculateBackgroundWorker : BackgroundService
                 await _salaryCalculateService.SalaryCalculateAsync();
 
                 await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
-                //Console.WriteLine($"Run DoWork Method In Back Ground");
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine($"Call Salary Api For Calculate Personnel Salary In This time : {DateTime.Now}");
             }

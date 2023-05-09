@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BackgroundServiceApplication.BackgroundWorkers;
-using BackgroundServiceApplication.Services.Contract;
+using BackgroundServiceApplication.Services.Contracts;
 using BackgroundServiceApplication.Services;
+using BackgroundServiceApplication.Wrappers.Contracts;
+using BackgroundServiceApplication.Wrappers;
 
 public class Program
 {
@@ -17,6 +19,7 @@ public class Program
             {
                 #region AddServices
                 
+                services.AddSingleton<ISalaryCalculateWrapper, SalaryCalculateWrapper>();
                 services.AddSingleton<ISalaryCalculateService, SalaryCalculateService>();
                 services.AddHostedService<SalaryCalculateBackgroundWorker>();
                 

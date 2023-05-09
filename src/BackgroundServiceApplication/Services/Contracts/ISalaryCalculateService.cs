@@ -1,4 +1,4 @@
-﻿namespace BackgroundServiceApplication.Services.Contract;
+﻿namespace BackgroundServiceApplication.Services.Contracts;
 
 public interface ISalaryCalculateService
 {
