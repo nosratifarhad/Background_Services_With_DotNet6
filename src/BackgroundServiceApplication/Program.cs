@@ -18,11 +18,23 @@ public class Program
             .ConfigureServices((hostContext, services) =>
             {
                 #region AddServices
-                
+
                 services.AddSingleton<ISalaryCalculateWrapper, SalaryCalculateWrapper>();
                 services.AddSingleton<ISalaryCalculateService, SalaryCalculateService>();
                 services.AddHostedService<SalaryCalculateBackgroundWorker>();
-                
+                //services.AddHostedService<SalaryCalculateHostWorker>();
+
                 #endregion AddServices
+
+                #region [ Configure ]
+
+                services.Configure<HostOptions>(x =>
+                {
+                    x.ShutdownTimeout = TimeSpan.FromSeconds(1);
+                    x.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.StopHost;
+                });
+
+                #endregion [ Configure ]
+
             });
 }
